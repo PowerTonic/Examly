@@ -1,0 +1,45 @@
+/* DESIGN.md: button-primary, button-secondary. Pill rounded.full always. */
+.btn {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  border-radius: var(--radius-full);
+  padding: 10px 22px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-hairline);
+  color: var(--color-muted);
+  border-color: transparent;
+}
+
+/* button-primary: bright green pill, deep-navy text */
+.btn--primary {
+  background-color: var(--color-brand-green);
+  color: var(--color-on-primary);
+}
+.btn--primary:not(:disabled):active {
+  background-color: var(--color-primary-pressed);
+}
+
+/* button-secondary: outlined pill */
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-hairline-strong);
+}
+
+/* danger: outlined pill in warning tone for destructive actions */
+.btn--danger {
+  background-color: transparent;
+  color: var(--color-warning-text);
+  border: 1px solid var(--color-hairline-strong);
+}
+.btn--danger:not(:disabled):active {
+  background-color: var(--color-warning-bg);
+}

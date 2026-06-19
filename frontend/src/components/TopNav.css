@@ -1,0 +1,34 @@
+/* DESIGN.md: Top Navigation (Marketing) — white sticky bar, ~64px, hairline border. */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--color-canvas);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.topnav__inner {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topnav__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-ink);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Brand-green leaf mark (the only green accent in the nav) */
+.topnav__leaf {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full) var(--radius-xs);
+  background-color: var(--color-brand-green);
+  transform: rotate(45deg);
+}

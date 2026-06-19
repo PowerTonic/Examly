@@ -1,0 +1,11 @@
+/* DESIGN.md: badge-green-soft */
+.badge {
+  display: inline-block;
+  background-color: var(--color-brand-green-soft);
+  color: var(--color-brand-green-dark);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+}
