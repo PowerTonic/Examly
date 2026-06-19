@@ -15,16 +15,14 @@ export function CodeMockup() {
       </div>
       <pre className="code-mockup__body">
         <code>
-          <span className="code-mockup__prompt">$ GET /api/quizzes/1</span>
+          <span className="code-mockup__prompt">$ GET /api/questions/1</span>
           {"\n\n"}
           {"{\n"}
           {"  "}<span className="code-mockup__key">"id"</span>: <span className="code-mockup__num">1</span>,{"\n"}
-          {"  "}<span className="code-mockup__key">"title"</span>: <span className="code-mockup__str">"World Geography"</span>,{"\n"}
-          {"  "}<span className="code-mockup__key">"questions"</span>: [{"\n"}
-          {"    "}{"{ "}<span className="code-mockup__key">"text"</span>: <span className="code-mockup__str">"Capital of Japan?"</span>,{"\n"}
-          {"      "}<span className="code-mockup__key">"correct_answer"</span>: <span className="code-mockup__str">"Tokyo"</span> {"}"},{"\n"}
-          {"    "}{"{ "}<span className="code-mockup__key">"text"</span>: <span className="code-mockup__str">"Longest river?"</span>,{"\n"}
-          {"      "}<span className="code-mockup__key">"correct_answer"</span>: <span className="code-mockup__str">"The Nile"</span> {"}"}{"\n"}
+          {"  "}<span className="code-mockup__key">"text"</span>: <span className="code-mockup__str">"Capital of Japan?"</span>,{"\n"}
+          {"  "}<span className="code-mockup__key">"options"</span>: [{"\n"}
+          {"    "}{"{ "}<span className="code-mockup__key">"text"</span>: <span className="code-mockup__str">"Tokyo"</span>, <span className="code-mockup__key">"is_correct"</span>: <span className="code-mockup__num">true</span> {"}"},{"\n"}
+          {"    "}{"{ "}<span className="code-mockup__key">"text"</span>: <span className="code-mockup__str">"Osaka"</span>, <span className="code-mockup__key">"is_correct"</span>: <span className="code-mockup__num">false</span> {"}"}{"\n"}
           {"  "}]{"\n"}
           {"}"}
         </code>

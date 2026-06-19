@@ -6,6 +6,7 @@ import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { AppLayout } from "../layouts/AppLayout";
 import type { Quiz } from "../types";
+import "./QuizDetailPage.css";
 
 export function QuizDetailPage() {
   const { quizId } = useParams();
@@ -92,15 +93,10 @@ export function QuizDetailPage() {
         <div className="stack-sm">
           {quiz.questions.map((question, index) => (
             <Card key={question.id}>
-              <div className="row-between">
-                <div className="stack-sm">
-                  <span className="heading-5">
-                    {index + 1}. {question.text}
-                  </span>
-                  <span className="body-sm text-steel">
-                    Answer: {question.correct_answer}
-                  </span>
-                </div>
+              <div className="row-between" style={{ alignItems: "flex-start" }}>
+                <span className="heading-5">
+                  {index + 1}. {question.text}
+                </span>
                 <div className="row-gap">
                   <Button
                     variant="secondary"
@@ -113,6 +109,22 @@ export function QuizDetailPage() {
                   </Button>
                 </div>
               </div>
+              <ul className="option-display">
+                {question.options.map((option) => (
+                  <li
+                    key={option.id}
+                    className={`option-display__item${
+                      option.is_correct ? " option-display__item--correct" : ""
+                    }`}
+                  >
+                    <span className="option-display__marker" aria-hidden="true">
+                      {option.is_correct ? "✓" : ""}
+                    </span>
+                    <span>{option.text}</span>
+                    {option.is_correct && <Badge>Correct</Badge>}
+                  </li>
+                ))}
+              </ul>
             </Card>
           ))}
         </div>

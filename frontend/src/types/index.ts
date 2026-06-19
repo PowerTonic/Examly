@@ -1,9 +1,15 @@
+export interface Option {
+  id: number;
+  text: string;
+  is_correct: boolean;
+}
+
 export interface Question {
   id: number;
   quiz_id: number;
   text: string;
-  correct_answer: string;
   created_at: string;
+  options: Option[];
 }
 
 export interface Quiz {
@@ -19,7 +25,12 @@ export interface QuizInput {
   description: string;
 }
 
+export interface OptionInput {
+  text: string;
+  is_correct: boolean;
+}
+
 export interface QuestionInput {
   text: string;
-  correct_answer: string;
+  options: OptionInput[];
 }

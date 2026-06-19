@@ -18,10 +18,15 @@ DESIGN.md   Design system — source of truth for all styling
 
 ## Database schema (3NF)
 
-Two tables, one-to-many with cascade delete:
+Three tables, one-to-many all the way down with cascade delete
+(`quiz → question → option`):
 
 - `quizzes` — `id`, `title`, `description`, `created_at`
-- `questions` — `id`, `quiz_id` (FK → quizzes, cascade), `text`, `correct_answer`, `created_at`
+- `questions` — `id`, `quiz_id` (FK → quizzes, cascade), `text`, `created_at`
+- `options` — `id`, `question_id` (FK → questions, cascade), `text`, `is_correct`
+
+Each question is multiple-choice: it has 2–6 options, exactly one of which is
+marked correct (enforced by the API).
 
 ## API endpoints
 
@@ -32,11 +37,23 @@ Two tables, one-to-many with cascade delete:
 | POST | `/api/quizzes` | Create a quiz |
 | PUT | `/api/quizzes/{id}` | Update a quiz |
 | DELETE | `/api/quizzes/{id}` | Delete a quiz (cascades) |
-| GET | `/api/quizzes/{id}/questions` | List a quiz's questions |
-| POST | `/api/quizzes/{id}/questions` | Add a question |
-| GET | `/api/questions/{id}` | Get a question |
-| PUT | `/api/questions/{id}` | Update a question |
-| DELETE | `/api/questions/{id}` | Delete a question |
+| GET | `/api/quizzes/{id}/questions` | List a quiz's questions (with options) |
+| POST | `/api/quizzes/{id}/questions` | Add a multiple-choice question |
+| GET | `/api/questions/{id}` | Get a question (with options) |
+| PUT | `/api/questions/{id}` | Update a question and its options |
+| DELETE | `/api/questions/{id}` | Delete a question (options cascade) |
+
+Question create/update payloads carry the options inline, e.g.:
+
+```json
+{
+  "text": "What is the capital of Japan?",
+  "options": [
+    { "text": "Tokyo", "is_correct": true },
+    { "text": "Osaka", "is_correct": false }
+  ]
+}
+```
 
 ## Running locally
 

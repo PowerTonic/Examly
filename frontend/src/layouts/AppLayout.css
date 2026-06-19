@@ -1,33 +1,54 @@
-/* DESIGN.md: hero-band-dark — deep-teal band framing the primary CTA. */
+/* DESIGN.md: hero-band-dark — deep-teal band framing the primary CTA.
+   Vertical padding lives on the section (not __inner) because .container's
+   horizontal padding shorthand would otherwise zero out top/bottom. */
 .hero-band {
   background-color: var(--color-brand-teal-deep);
   color: var(--color-on-dark);
+  padding-top: var(--space-hero);
+  padding-bottom: var(--space-hero);
 }
 
 .hero-band__inner {
-  padding-top: var(--space-section-lg);
-  padding-bottom: var(--space-section-lg);
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: var(--space-section);
 }
 
+/* Intentional vertical rhythm via explicit margins (not a uniform gap),
+   so the eyebrow hugs the title and each block below gets real breathing room. */
 .hero-band__text {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
 }
 
 .hero-band__eyebrow {
+  display: block;
+  margin-bottom: var(--space-md);
   color: var(--color-brand-green);
 }
 
-/* Live stats strip (DESIGN.md spacing + on-dark text scale) */
+/* hero-display: 72px / 500 / 1.10 / -1.5px (scales down per breakpoints) */
+.hero-band__title {
+  font-size: 72px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--color-on-dark);
+  max-width: 16ch;
+}
+
+.hero-band__subtitle {
+  margin-top: var(--space-lg);
+  color: var(--color-on-dark-muted);
+  max-width: 52ch;
+}
+
+/* Live stats strip */
 .hero-band__stats {
   display: flex;
-  gap: var(--space-xxl);
-  margin-top: var(--space-xs);
+  gap: var(--space-xxxl);
+  margin-top: var(--space-xxl);
 }
 
 .hero-band__stat-value {
@@ -45,29 +66,14 @@
   color: var(--color-on-dark-muted);
 }
 
-.hero-band__aside {
-  min-width: 0;
-}
-
-/* hero-display: 72px / 500 / 1.10 / -1.5px (scales down per breakpoints) */
-.hero-band__title {
-  font-size: 72px;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-  color: var(--color-on-dark);
-  max-width: 14ch;
-}
-
-.hero-band__subtitle {
-  color: var(--color-on-dark-muted);
-  max-width: 60ch;
-}
-
 .hero-band__actions {
   display: flex;
   gap: var(--space-sm);
-  margin-top: var(--space-md);
+  margin-top: var(--space-xxl);
+}
+
+.hero-band__aside {
+  min-width: 0;
 }
 
 /* Hero typography collapse: 72 -> 56 -> 48 -> 36 (DESIGN.md responsive table) */
@@ -81,11 +87,13 @@
     font-size: 56px;
   }
   /* Single column — code mockup moves below the text (DESIGN.md). */
+  .hero-band {
+    padding-top: var(--space-section-lg);
+    padding-bottom: var(--space-section-lg);
+  }
   .hero-band__inner {
     grid-template-columns: 1fr;
     gap: var(--space-xxl);
-    padding-top: var(--space-section);
-    padding-bottom: var(--space-section);
   }
 }
 @media (max-width: 767px) {
