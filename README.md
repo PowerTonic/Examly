@@ -60,3 +60,20 @@ npm run dev
 ```
 
 The frontend expects the backend at `http://127.0.0.1:8000`; CORS is preconfigured for the Vite dev server.
+
+## Convenience scripts (Windows)
+
+- `start.bat` — first-run setup (venv + deps, npm install) then launches both servers, each in its own window.
+- `stop.bat` — stops whatever is listening on ports 8000 and 5173.
+
+## Sample data
+
+Populate the database with example quizzes and questions:
+
+```bash
+cd backend
+.venv\Scripts\activate
+python seed.py
+```
+
+This resets the data to 3 sample quizzes (7 questions total).
