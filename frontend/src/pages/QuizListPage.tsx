@@ -4,6 +4,7 @@ import { deleteQuiz, listQuizzes } from "../api/client";
 import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
+import { CodeMockup } from "../components/CodeMockup";
 import { AppLayout, HeroBand } from "../layouts/AppLayout";
 import type { Quiz } from "../types";
 
@@ -33,6 +34,8 @@ export function QuizListPage() {
     }
   };
 
+  const questionCount = quizzes.reduce((sum, q) => sum + q.questions.length, 0);
+
   return (
     <AppLayout
       hero={
@@ -40,11 +43,16 @@ export function QuizListPage() {
           eyebrow="Quiz App"
           title="Build and manage your quizzes."
           subtitle="Create quizzes, add questions, and keep everything organized in one place."
+          stats={[
+            { value: quizzes.length, label: "Quizzes" },
+            { value: questionCount, label: "Questions" },
+          ]}
           actions={
             <Button variant="primary" onClick={() => navigate("/quizzes/new")}>
               New Quiz
             </Button>
           }
+          aside={<CodeMockup />}
         />
       }
     >

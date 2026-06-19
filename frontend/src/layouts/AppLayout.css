@@ -7,6 +7,13 @@
 .hero-band__inner {
   padding-top: var(--space-section-lg);
   padding-bottom: var(--space-section-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-section);
+}
+
+.hero-band__text {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -14,6 +21,32 @@
 
 .hero-band__eyebrow {
   color: var(--color-brand-green);
+}
+
+/* Live stats strip (DESIGN.md spacing + on-dark text scale) */
+.hero-band__stats {
+  display: flex;
+  gap: var(--space-xxl);
+  margin-top: var(--space-xs);
+}
+
+.hero-band__stat-value {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  color: var(--color-on-dark);
+}
+
+.hero-band__stat-label {
+  margin-top: var(--space-xxs);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-on-dark-muted);
+}
+
+.hero-band__aside {
+  min-width: 0;
 }
 
 /* hero-display: 72px / 500 / 1.10 / -1.5px (scales down per breakpoints) */
@@ -47,7 +80,10 @@
   .hero-band__title {
     font-size: 56px;
   }
+  /* Single column — code mockup moves below the text (DESIGN.md). */
   .hero-band__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xxl);
     padding-top: var(--space-section);
     padding-bottom: var(--space-section);
   }
