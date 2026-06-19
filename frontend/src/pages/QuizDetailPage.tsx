@@ -75,7 +75,17 @@ export function QuizDetailPage() {
       </div>
 
       <div className="row-gap" style={{ marginBottom: "var(--space-section)" }}>
-        <Button variant="primary" onClick={() => navigate(`/quizzes/${quiz.id}/questions/new`)}>
+        <Button
+          variant="primary"
+          onClick={() => navigate(`/quizzes/${quiz.id}/take`)}
+          disabled={quiz.questions.length === 0}
+          title={
+            quiz.questions.length === 0 ? "Add a question first" : "Take this quiz"
+          }
+        >
+          Take quiz
+        </Button>
+        <Button variant="secondary" onClick={() => navigate(`/quizzes/${quiz.id}/questions/new`)}>
           Add question
         </Button>
         <Button variant="secondary" onClick={() => navigate(`/quizzes/${quiz.id}/edit`)}>

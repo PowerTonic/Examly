@@ -28,6 +28,12 @@ Three tables, one-to-many all the way down with cascade delete
 Each question is multiple-choice: it has 2–6 options, exactly one of which is
 marked correct (enforced by the API).
 
+## Taking a quiz
+
+Open a quiz and click **Take quiz** to run it interactively: one question at a
+time with a progress bar, then a results screen showing your score and a
+per-question review (correct answers in green, your wrong picks in amber).
+
 ## API endpoints
 
 | Method | Route | Purpose |

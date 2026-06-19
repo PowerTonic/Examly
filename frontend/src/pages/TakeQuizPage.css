@@ -1,0 +1,138 @@
+/* Quiz-taking flow — all values from DESIGN.md tokens. */
+
+.take-head {
+  margin-bottom: var(--space-xl);
+}
+
+/* Progress track + brand-green fill. */
+.take-progress {
+  margin-top: var(--space-md);
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-hairline);
+  overflow: hidden;
+}
+
+.take-progress__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-green);
+  transition: width 200ms ease;
+}
+
+.take-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.take-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Selectable answer — neutral until chosen, then green-outlined. */
+.take-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  text-align: left;
+  padding: var(--space-md);
+  border: 1px solid var(--color-hairline-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.55;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.take-option__bullet {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-hairline-strong);
+}
+
+.take-option--active {
+  border: 2px solid var(--color-brand-green-dark);
+  background-color: var(--color-surface-feature);
+}
+
+.take-option--active .take-option__bullet {
+  border-color: var(--color-brand-green-dark);
+  background-color: var(--color-brand-green-dark);
+  box-shadow: inset 0 0 0 3px var(--color-surface-feature);
+}
+
+.take-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+/* ---------- Results ---------- */
+.take-result-head {
+  margin-bottom: var(--space-section);
+}
+
+.take-result-eyebrow {
+  display: block;
+  margin-bottom: var(--space-sm);
+  color: var(--color-brand-green-dark);
+}
+
+.take-result-head .take-actions {
+  margin-top: var(--space-xl);
+}
+
+.take-review-options {
+  list-style: none;
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.take-review-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-slate);
+}
+
+.take-review-option--correct {
+  background-color: var(--color-surface-feature);
+  border-color: var(--color-brand-green);
+  color: var(--color-brand-green-dark);
+  font-weight: 500;
+}
+
+.take-review-option--wrong {
+  background-color: var(--color-warning-bg);
+  border-color: var(--color-warning-text);
+  color: var(--color-warning-text);
+  font-weight: 500;
+}
+
+.take-review-marker {
+  display: inline-flex;
+  justify-content: center;
+  width: 16px;
+  font-weight: 600;
+}
+
+.take-review-option .badge {
+  margin-left: auto;
+}
