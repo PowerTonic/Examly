@@ -7,6 +7,8 @@ backend/quiz.db
 # Node / frontend
 frontend/node_modules/
 frontend/dist/
+frontend/*.tsbuildinfo
+frontend/tsconfig.tsbuildinfo
 
 # Editor / OS
 .vscode/
