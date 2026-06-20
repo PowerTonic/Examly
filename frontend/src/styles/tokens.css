@@ -47,8 +47,8 @@
   --color-on-dark-muted: #a8b3bc;
 
   /* ---- Typography ---- */
-  --font-display: "Euclid Circular A", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, sans-serif;
+  --font-display: "Hanken Grotesk", "Euclid Circular A", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-code: "Source Code Pro", "SF Mono", Menlo, Consolas, monospace;
 
   /* ---- Radius ---- */

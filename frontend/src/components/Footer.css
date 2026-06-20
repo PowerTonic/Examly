@@ -14,10 +14,22 @@
 }
 
 .footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
   font-size: 18px;
   font-weight: 600;
   line-height: 1.4;
   color: var(--color-on-dark);
+}
+
+/* Brand-green diamond mark, matching the top nav. */
+.footer__mark {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-xs);
+  background-color: var(--color-brand-green);
+  transform: rotate(45deg);
 }
 
 .footer__note {

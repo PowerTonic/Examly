@@ -3,13 +3,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createQuestion, getQuestion, updateQuestion } from "../api/client";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
+import { ImagePicker } from "../components/ImagePicker";
 import { TextArea, TextInput } from "../components/TextInput";
 import { AppLayout } from "../layouts/AppLayout";
 import "./QuestionFormPage.css";
 
 const MIN_OPTIONS = 2;
 const MAX_OPTIONS = 6;
-const DEFAULT_OPTIONS = ["", "", "", ""];
+
+interface OptionDraft {
+  text: string;
+  image: string | null;
+}
+
+const emptyOption = (): OptionDraft => ({ text: "", image: null });
+const DEFAULT_OPTIONS: OptionDraft[] = [
+  emptyOption(),
+  emptyOption(),
+  emptyOption(),
+  emptyOption(),
+];
 
 export function QuestionFormPage() {
   const { quizId: quizIdParam, questionId } = useParams();
@@ -20,7 +33,8 @@ export function QuestionFormPage() {
     quizIdParam ? Number(quizIdParam) : null
   );
   const [text, setText] = useState("");
-  const [options, setOptions] = useState<string[]>(DEFAULT_OPTIONS);
+  const [image, setImage] = useState<string | null>(null);
+  const [options, setOptions] = useState<OptionDraft[]>(DEFAULT_OPTIONS);
   const [correctIndex, setCorrectIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -30,21 +44,22 @@ export function QuestionFormPage() {
     getQuestion(Number(questionId))
       .then((q) => {
         setText(q.text);
+        setImage(q.image_url);
         setQuizId(q.quiz_id);
-        setOptions(q.options.map((o) => o.text));
+        setOptions(q.options.map((o) => ({ text: o.text, image: o.image_url })));
         const correct = q.options.findIndex((o) => o.is_correct);
         setCorrectIndex(correct >= 0 ? correct : 0);
       })
       .catch((e: Error) => setError(e.message));
   }, [questionId]);
 
-  const updateOption = (index: number, value: string) => {
-    setOptions((prev) => prev.map((o, i) => (i === index ? value : o)));
+  const patchOption = (index: number, patch: Partial<OptionDraft>) => {
+    setOptions((prev) => prev.map((o, i) => (i === index ? { ...o, ...patch } : o)));
   };
 
   const addOption = () => {
     if (options.length >= MAX_OPTIONS) return;
-    setOptions((prev) => [...prev, ""]);
+    setOptions((prev) => [...prev, emptyOption()]);
   };
 
   const removeOption = (index: number) => {
@@ -57,8 +72,10 @@ export function QuestionFormPage() {
     });
   };
 
-  const allFilled = options.every((o) => o.trim().length > 0);
-  const canSubmit = text.trim().length > 0 && allFilled;
+  // An option/prompt is valid as long as it has text OR an image.
+  const optionFilled = (o: OptionDraft) => o.text.trim().length > 0 || o.image !== null;
+  const promptFilled = text.trim().length > 0 || image !== null;
+  const canSubmit = promptFilled && options.every(optionFilled);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,8 +83,10 @@ export function QuestionFormPage() {
     setError(null);
     const payload = {
       text: text.trim(),
+      image_url: image,
       options: options.map((o, i) => ({
-        text: o.trim(),
+        text: o.text.trim(),
+        image_url: o.image,
         is_correct: i === correctIndex,
       })),
     };
@@ -91,7 +110,7 @@ export function QuestionFormPage() {
         {isEdit ? "Edit question" : "Add question"}
       </h2>
 
-      <Card style={{ maxWidth: 720 }}>
+      <Card style={{ maxWidth: 760 }}>
         {error && (
           <p className="error-text" style={{ marginBottom: "var(--space-md)" }}>
             {error}
@@ -106,8 +125,16 @@ export function QuestionFormPage() {
               id="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="e.g. What is the capital of France?"
-              required
+              placeholder="e.g. Which diagram shows a binary tree? (text optional if you add an image)"
+            />
+          </div>
+
+          <div className="field">
+            <ImagePicker
+              value={image}
+              onChange={setImage}
+              label="Question image (optional)"
+              ariaLabel="Question image"
             />
           </div>
 
@@ -115,7 +142,8 @@ export function QuestionFormPage() {
             <div className="options-header">
               <span className="field-label">Answer options</span>
               <span className="options-hint">
-                Select the radio to mark the correct answer
+                Each option can be text, a picture, or both — pick the radio to mark
+                the correct answer
               </span>
             </div>
 
@@ -136,12 +164,21 @@ export function QuestionFormPage() {
                         aria-label={`Mark option ${index + 1} as correct`}
                       />
                     </label>
-                    <TextInput
-                      value={option}
-                      onChange={(e) => updateOption(index, e.target.value)}
-                      placeholder={`Option ${index + 1}`}
-                      required
-                    />
+
+                    <div className="option-body">
+                      <TextInput
+                        value={option.text}
+                        onChange={(e) => patchOption(index, { text: e.target.value })}
+                        placeholder={`Option ${index + 1} text (optional if image added)`}
+                      />
+                      <ImagePicker
+                        variant="compact"
+                        value={option.image}
+                        onChange={(img) => patchOption(index, { image: img })}
+                        ariaLabel={`Option ${index + 1} image`}
+                      />
+                    </div>
+
                     <button
                       type="button"
                       className="option-remove"

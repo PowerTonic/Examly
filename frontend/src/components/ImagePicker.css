@@ -1,0 +1,117 @@
+/* Image picker — upload/preview control. All values from DESIGN.md tokens. */
+
+.image-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.image-picker__input {
+  display: none;
+}
+
+.image-picker__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-steel);
+}
+
+/* ---- Empty state: dropzone ---- */
+.image-picker__drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  width: 100%;
+  border: 1px dashed var(--color-hairline-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-steel);
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.image-picker--full .image-picker__drop {
+  flex-direction: column;
+  padding: var(--space-lg);
+  font-size: 14px;
+}
+
+.image-picker--compact .image-picker__drop {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 13px;
+}
+
+.image-picker__drop:hover,
+.image-picker__drop--over {
+  border-color: var(--color-brand-green-mid);
+  background-color: var(--color-surface-feature);
+  color: var(--color-brand-green-dark);
+}
+
+.image-picker__icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.image-picker--compact .image-picker__icon {
+  font-size: 15px;
+}
+
+/* ---- Preview ---- */
+.image-picker__preview {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-surface-soft);
+  border: 1px solid var(--color-hairline);
+}
+
+.image-picker__preview img {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+}
+
+.image-picker--full .image-picker__preview img {
+  max-height: 320px;
+}
+
+.image-picker--compact .image-picker__preview img {
+  max-height: 140px;
+}
+
+.image-picker__overlay {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  display: flex;
+  gap: var(--space-xxs);
+}
+
+.image-picker__chip {
+  padding: 4px 10px;
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: rgba(0, 30, 43, 0.72);
+  color: var(--color-on-dark);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.image-picker__chip:hover {
+  background-color: var(--color-ink);
+}
+
+.image-picker__chip--danger:hover {
+  background-color: var(--color-accent-orange);
+}
+
+.image-picker__error {
+  font-size: 12px;
+  color: var(--color-accent-orange);
+}

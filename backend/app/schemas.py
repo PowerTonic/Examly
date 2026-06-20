@@ -5,8 +5,15 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 # ---------- Option ----------
 class OptionBase(BaseModel):
-    text: str = Field(min_length=1)
+    text: str = ""
+    image_url: str | None = None
     is_correct: bool = False
+
+    @model_validator(mode="after")
+    def _require_content(self):
+        if not self.text.strip() and not self.image_url:
+            raise ValueError("Each option needs text, an image, or both")
+        return self
 
 
 class OptionOut(OptionBase):
@@ -17,7 +24,14 @@ class OptionOut(OptionBase):
 
 # ---------- Question ----------
 class QuestionBase(BaseModel):
-    text: str = Field(min_length=1)
+    text: str = ""
+    image_url: str | None = None
+
+    @model_validator(mode="after")
+    def _require_prompt(self):
+        if not self.text.strip() and not self.image_url:
+            raise ValueError("A question needs text, an image, or both")
+        return self
 
 
 class QuestionWrite(QuestionBase):

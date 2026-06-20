@@ -103,10 +103,17 @@ export function TakeQuizPage() {
             return (
               <Card key={q.id}>
                 <span className="heading-5">
-                  {index + 1}. {q.text}
+                  {index + 1}. {q.text || (q.image_url ? "(see image)" : "")}
                 </span>
+                {q.image_url && (
+                  <img
+                    className="take-review-question-image"
+                    src={q.image_url}
+                    alt="Question illustration"
+                  />
+                )}
                 <ul className="take-review-options">
-                  {q.options.map((o) => {
+                  {q.options.map((o, oIndex) => {
                     const isChosen = chosen === o.id;
                     const wrongPick = isChosen && !o.is_correct;
                     let cls = "take-review-option";
@@ -117,7 +124,14 @@ export function TakeQuizPage() {
                         <span className="take-review-marker" aria-hidden="true">
                           {o.is_correct ? "✓" : wrongPick ? "✕" : ""}
                         </span>
-                        <span>{o.text}</span>
+                        {o.image_url && (
+                          <img
+                            className="take-review-option-image"
+                            src={o.image_url}
+                            alt={o.text || `Option ${oIndex + 1}`}
+                          />
+                        )}
+                        {o.text && <span>{o.text}</span>}
                         {isChosen && <Badge>Your answer</Badge>}
                       </li>
                     );
@@ -136,6 +150,8 @@ export function TakeQuizPage() {
   const selected = answers[question.id];
   const isLast = current === total - 1;
   const progress = Math.round(((current + 1) / total) * 100);
+  // Lay options out as a picture grid when any of them carries an image.
+  const hasImages = question.options.some((o) => o.image_url);
 
   const choose = (optionId: number) =>
     setAnswers((prev) => ({ ...prev, [question.id]: optionId }));
@@ -155,20 +171,40 @@ export function TakeQuizPage() {
       </div>
 
       <Card className="take-card">
-        <span className="heading-4">{question.text}</span>
-        <div className="take-options">
-          {question.options.map((option) => {
+        {question.text && <span className="heading-4">{question.text}</span>}
+        {question.image_url && (
+          <img
+            className="take-question-image"
+            src={question.image_url}
+            alt="Question illustration"
+          />
+        )}
+        <div className={`take-options${hasImages ? " take-options--grid" : ""}`}>
+          {question.options.map((option, oIndex) => {
             const active = selected === option.id;
             return (
               <button
                 key={option.id}
                 type="button"
-                className={`take-option${active ? " take-option--active" : ""}`}
+                className={`take-option${hasImages ? " take-option--media" : ""}${
+                  active ? " take-option--active" : ""
+                }`}
                 onClick={() => choose(option.id)}
                 aria-pressed={active}
               >
-                <span className="take-option__bullet" aria-hidden="true" />
-                <span>{option.text}</span>
+                <span className="take-option__bullet" aria-hidden="true">
+                  {hasImages && active ? "✓" : ""}
+                </span>
+                {option.image_url && (
+                  <img
+                    className="take-option__image"
+                    src={option.image_url}
+                    alt={option.text || `Option ${oIndex + 1}`}
+                  />
+                )}
+                {option.text && (
+                  <span className="take-option__label">{option.text}</span>
+                )}
               </button>
             );
           })}

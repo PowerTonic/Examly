@@ -5,10 +5,11 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="container footer__inner">
-        <span className="footer__brand">Quiz App</span>
-        <span className="footer__note">
-          Built with FastAPI, React &amp; SQLite — styled per DESIGN.md
+        <span className="footer__brand">
+          <span className="footer__mark" aria-hidden="true" />
+          Examly
         </span>
+        <span className="footer__note">A calm, focused way to study.</span>
       </div>
     </footer>
   );

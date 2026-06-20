@@ -28,14 +28,14 @@
   color: var(--color-brand-green);
 }
 
-/* hero-display: 72px / 500 / 1.10 / -1.5px (scales down per breakpoints) */
+/* hero-display: 72px / 600 / 1.05 / -2px (scales down per breakpoints) */
 .hero-band__title {
   font-size: 72px;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -2px;
   color: var(--color-on-dark);
-  max-width: 16ch;
+  max-width: 14ch;
 }
 
 .hero-band__subtitle {
@@ -44,11 +44,16 @@
   max-width: 52ch;
 }
 
-/* Live stats strip */
+/* Live stats strip — values separated by a faint vertical rule. */
 .hero-band__stats {
   display: flex;
-  gap: var(--space-xxxl);
+  gap: var(--space-xl);
   margin-top: var(--space-xxl);
+}
+
+.hero-band__stat + .hero-band__stat {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  padding-left: var(--space-xl);
 }
 
 .hero-band__stat-value {
