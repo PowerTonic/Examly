@@ -24,11 +24,11 @@
   line-height: 1.4;
 }
 
-/* Brand-green leaf mark (the only green accent in the nav) */
-.topnav__leaf {
-  width: 16px;
-  height: 16px;
-  border-radius: var(--radius-full) var(--radius-xs);
+/* Brand-green diamond mark (rotated square) — the Examly signature. */
+.topnav__mark {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-xs);
   background-color: var(--color-brand-green);
   transform: rotate(45deg);
 }

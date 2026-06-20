@@ -9,11 +9,11 @@ export function TopNav() {
     <header className="topnav">
       <div className="container topnav__inner">
         <Link to="/" className="topnav__brand">
-          <span className="topnav__leaf" aria-hidden="true" />
-          Quiz App
+          <span className="topnav__mark" aria-hidden="true" />
+          Examly
         </Link>
         <Button variant="primary" onClick={() => navigate("/quizzes/new")}>
-          New Quiz
+          New quiz
         </Button>
       </div>
     </header>

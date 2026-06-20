@@ -34,6 +34,15 @@
   border: 1px solid var(--color-hairline-strong);
 }
 
+/* dark: solid deep-teal pill, white text — calm primary CTA on light cards */
+.btn--dark {
+  background-color: var(--color-ink);
+  color: var(--color-on-dark);
+}
+.btn--dark:not(:disabled):hover {
+  background-color: var(--color-charcoal);
+}
+
 /* danger: outlined pill in warning tone for destructive actions */
 .btn--danger {
   background-color: transparent;
