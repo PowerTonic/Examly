@@ -105,7 +105,7 @@ export function QuizDetailPage() {
             <Card key={question.id}>
               <div className="row-between" style={{ alignItems: "flex-start" }}>
                 <span className="heading-5">
-                  {index + 1}. {question.text}
+                  {index + 1}. {question.text || (question.image_url ? "(image question)" : "")}
                 </span>
                 <div className="row-gap">
                   <Button
@@ -119,8 +119,15 @@ export function QuizDetailPage() {
                   </Button>
                 </div>
               </div>
+              {question.image_url && (
+                <img
+                  className="question-display__image"
+                  src={question.image_url}
+                  alt="Question illustration"
+                />
+              )}
               <ul className="option-display">
-                {question.options.map((option) => (
+                {question.options.map((option, oIndex) => (
                   <li
                     key={option.id}
                     className={`option-display__item${
@@ -130,7 +137,14 @@ export function QuizDetailPage() {
                     <span className="option-display__marker" aria-hidden="true">
                       {option.is_correct ? "✓" : ""}
                     </span>
-                    <span>{option.text}</span>
+                    {option.image_url && (
+                      <img
+                        className="option-display__image"
+                        src={option.image_url}
+                        alt={option.text || `Option ${oIndex + 1}`}
+                      />
+                    )}
+                    {option.text && <span>{option.text}</span>}
                     {option.is_correct && <Badge>Correct</Badge>}
                   </li>
                 ))}

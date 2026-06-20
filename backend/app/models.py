@@ -32,7 +32,9 @@ class Question(Base):
     quiz_id: Mapped[int] = mapped_column(
         ForeignKey("quizzes.id", ondelete="CASCADE"), nullable=False, index=True
     )
-    text: Mapped[str] = mapped_column(Text, nullable=False)
+    text: Mapped[str] = mapped_column(Text, nullable=False, default="")
+    # Optional image (stored as a data URL or remote URL) shown with the prompt.
+    image_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow, nullable=False)
 
     quiz: Mapped["Quiz"] = relationship(back_populates="questions")
@@ -50,7 +52,9 @@ class Option(Base):
     question_id: Mapped[int] = mapped_column(
         ForeignKey("questions.id", ondelete="CASCADE"), nullable=False, index=True
     )
-    text: Mapped[str] = mapped_column(Text, nullable=False)
+    text: Mapped[str] = mapped_column(Text, nullable=False, default="")
+    # Optional image (data URL or remote URL) — enables picture answers.
+    image_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     is_correct: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
     question: Mapped["Question"] = relationship(back_populates="options")

@@ -19,3 +19,6 @@ Thumbs.db
 # Test / tooling artifacts
 .playwright-mcp/
 *.png
+.agent-browser-shots/
+# Machine-specific browser path (see BROWSER_TESTING.md to recreate)
+agent-browser.json

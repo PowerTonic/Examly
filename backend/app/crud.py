@@ -52,9 +52,12 @@ def get_question(db: Session, question_id: int) -> models.Question | None:
 def create_question(
     db: Session, quiz_id: int, data: schemas.QuestionCreate
 ) -> models.Question:
-    question = models.Question(quiz_id=quiz_id, text=data.text)
+    question = models.Question(
+        quiz_id=quiz_id, text=data.text, image_url=data.image_url
+    )
     question.options = [
-        models.Option(text=o.text, is_correct=o.is_correct) for o in data.options
+        models.Option(text=o.text, image_url=o.image_url, is_correct=o.is_correct)
+        for o in data.options
     ]
     db.add(question)
     db.commit()
@@ -66,9 +69,11 @@ def update_question(
     db: Session, question: models.Question, data: schemas.QuestionUpdate
 ) -> models.Question:
     question.text = data.text
+    question.image_url = data.image_url
     # Replace the full option set; orphaned rows are removed via delete-orphan.
     question.options[:] = [
-        models.Option(text=o.text, is_correct=o.is_correct) for o in data.options
+        models.Option(text=o.text, image_url=o.image_url, is_correct=o.is_correct)
+        for o in data.options
     ]
     db.commit()
     db.refresh(question)
